@@ -23,7 +23,7 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start:tw": "postcss ./src/my.css -o ./src/tailwind.css -w",
+    "start:tw": "postcss ./src/todoStyles.css -o ./src/tailwind.css -w",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",

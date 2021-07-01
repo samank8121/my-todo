@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Calendar from "react-calendar";
 import "react-calendar/dist/Calendar.css";
 import moment from "moment";
@@ -6,6 +6,10 @@ import moment from "moment";
 export default function CustomCalendar(props: { initDate: Date, onChangeDate: any; }) {
   const { initDate, onChangeDate } = props;
   const [dateState, setDateState] = useState(initDate ? initDate : new Date());
+
+  useEffect(() => {
+    setDateState(initDate);
+  }, [initDate]);
 
   const formatShortWeekday = (locale: any, date: any) => {
     return ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"][date.getDay()];

@@ -1,12 +1,17 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import CustomCalendar from "./CustomCalendar";
 import CustomTime from "./CustomTime";
-import { TodoType, TodoStatus } from "./TodoTypes"
+import { TodoType, TodoStatus } from "./TodoTypes";
+import moment from "moment";
 
 
 const Modal = (props: { titleModal: string, showModal: boolean, closeModal: any; saveModal: any; todoObj: TodoType }) => {
   const { titleModal, showModal, closeModal, saveModal, todoObj } = props;
-  const [todo, setTodo] = React.useState<TodoType>(todoObj);
+  const [todo, setTodo] = useState<TodoType>(todoObj);
+
+  useEffect(() => {
+    setTodo(todoObj);
+  }, [todoObj]);
 
   const todoTaskChange = (e: React.FormEvent<HTMLInputElement>) => {
     const newValue = e.currentTarget.value;
@@ -16,7 +21,7 @@ const Modal = (props: { titleModal: string, showModal: boolean, closeModal: any;
     const newValue = e;
     setTodo(prevState => ({ ...prevState, date: newValue }));
   };
-  const todoTimeChange = (e: any) => {
+  const todoTimeChange = (e: any, date: any) => {
     const newValue = e;
     setTodo(prevState => ({ ...prevState, time: newValue }));
   };
