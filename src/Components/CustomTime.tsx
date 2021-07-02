@@ -10,6 +10,9 @@ export default function CustomTime(props: { initTime: Date, onChangeTime: any; }
     return (
         <>
             <TimePicker
+                disableClock={true}
+                clearIcon={null}
+                clockIcon={null}
                 value={timeState}
                 onChange={onChangeTime}
             />

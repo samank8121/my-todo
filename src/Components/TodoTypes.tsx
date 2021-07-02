@@ -8,5 +8,8 @@ export type TodoType = {
     time: Date
 }
 export enum TodoStatus {
-    Paused, InProgress, Done
+    InProgress = 1, Paused = 2
+}
+export interface FieldTodoTypes {
+    [key: string]: string;
 }
