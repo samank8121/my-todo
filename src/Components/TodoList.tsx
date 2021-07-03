@@ -1,10 +1,9 @@
-import React, { useState, useEffect } from "react";
-import { TodoType, TodoStatus } from "./TodoTypes"
+import React, { memo } from "react";
+import { TodoType } from "./TodoTypes"
 import moment from "moment";
 
-export default function TodoList(props: { data: TodoType[], isDone: boolean, editTodo: any, deleteTodo: any, doneTodo: any, sortByField: any }) {
+function TodoList(props: { data: TodoType[], isDone: boolean, editTodo: any, deleteTodo: any, doneTodo: any, sortByField: any }) {
     const { data: todos, editTodo, deleteTodo, doneTodo, isDone, sortByField } = props;
-
     const setDate = (date: Date) => {
         return `${moment(date).format("DD MMMM YYYY")}`;
     }
@@ -15,8 +14,24 @@ export default function TodoList(props: { data: TodoType[], isDone: boolean, edi
     }
 
     return (
-        <div>
-            <div className="flex flex-col mx-6">
+        <div className="font-medium" >
+            <div className="flex justify-end pt-8 ">
+                <span className="inline-flex rounded-md shadow-sm ">
+                    <button type="button"
+                        className="inline-flex items-center px-4 py-2 text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-l-md hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700">
+                        Month
+                    </button>
+                    <button type="button"
+                        className="inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700">
+                        Week
+                    </button>
+                    <button type="button"
+                        className="inline-flex items-center px-4 py-2 -ml-px text-sm font-medium leading-5 text-gray-700 transition duration-150 ease-in-out bg-white border border-gray-300 rounded-r-md hover:text-gray-500 focus:z-10 focus:outline-none focus:border-blue-300 focus:shadow-outline-blue active:bg-gray-100 active:text-gray-700">
+                        Day
+                    </button>
+                </span>
+            </div>
+            <div className="flex flex-col mx-6 text-19">
                 <div className="flex items-center justify-between w-auto mt-2 border-b border-grid-seperator">
                     <div className={isDone ? "hidden" : "block w-14"}></div>
                     <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("tasks", isDone)}>Tasks</button>
@@ -30,13 +45,13 @@ export default function TodoList(props: { data: TodoType[], isDone: boolean, edi
                     <div className={isDone ? "w-min" : "w-1/12"}></div>
                 </div>
             </div>
-            <div className="flex flex-col mx-6">
+            <div className="flex flex-col mx-6 text-19">
                 {
                     todos.filter(t => t.isChecked === isDone).map(t => {
                         return (<div key={t.id.toString()} className="flex items-center justify-between w-auto mt-2 border-b border-grid-seperator">
                             <input key={`done_${t.id}`} name={`${t.id}`} type="checkbox" className={isDone ? "hidden" : "w-10 text-center"} checked={t.isChecked} onChange={doneTodo}></input>
-                            <input key={`task_${t.id}`} type="text" readOnly className="pl-5 text-center w-52" value={t.tasks}></input>
-                            <div key={`status_${t.id}`} className={isDone ? "hidden" : `block px-6 py-1 rounded-full text-center h-8 w-52 text-white bg-${(t.status === 1) ? "inprogress " : "paused "}`}>{(t.status === 1) ? "In Progress" : "Paused"}</div>
+                            <label key={`task_${t.id}`} className="pl-5 text-center w-52">{t.tasks}</label>
+                            <div key={`status_${t.id}`} className={isDone ? "hidden" : `block px-6 py-1 rounded-full text-center font-bold h-8 w-52 text-lg text-white bg-${(t.status === 1) ? "inprogress " : "paused "}`}>{(t.status === 1) ? "In Progress" : "Paused"}</div>
                             <label key={`date_${t.id}`} className="pl-5 text-center w-52">{setDate(t.date)}</label>
                             <label key={`itime_${t.id}`} className="pl-5 text-center w-52">{setTime(t.time)}</label>
                             <div className="flex">
@@ -60,3 +75,6 @@ export default function TodoList(props: { data: TodoType[], isDone: boolean, edi
         </div>
     );
 }
+
+
+export default memo(TodoList);

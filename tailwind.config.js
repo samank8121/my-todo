@@ -2,6 +2,9 @@ module.exports = {
   purge: [],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    fontFamily: {
+      'sans': ['Roboto', 'ui-sans-serif', 'system-ui','Helvetica', 'Arial', 'sans-serif']
+    },
     extend: {
       colors: {
         'button-blue': '#5582EF',
@@ -13,8 +16,14 @@ module.exports = {
         'paused':'#FFA700',
         'inprogress':'#1984B8',
         'grid-seperator':'#D4D6DD9A',
-        'grid-header':'#808080'
-      },     
+        'grid-header':'#808080',
+        'grid-text': '#272727',
+        'filter':'#4D4F5C'
+      },
+      fontSize: {
+        '15': ['15px','22px'],
+        '19': ['19px','28px']  
+      }        
     },
   },
   variants: {
