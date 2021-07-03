@@ -43,6 +43,7 @@ const Tabs = () => {
             }
         );
     }
+
     const idGenerator = () => {
         return (todos && todos.length > 0) ? todos.reduce(
             (max, character) => (character.id > max ? character.id : max),
