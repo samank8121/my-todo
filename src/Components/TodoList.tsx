@@ -18,12 +18,16 @@ export default function TodoList(props: { data: TodoType[], isDone: boolean, edi
         <div>
             <div className="flex flex-col mx-6">
                 <div className="flex items-center justify-between w-auto mt-2 border-b border-grid-seperator">
-                    <div className="w-14"></div>
-                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("tasks")}>Tasks</button>
-                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("status")}>Status</button>
-                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("date")}>Date</button>
-                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("time")}>Time</button>
-                    <div className="w-28"></div>
+                    <div className={isDone ? "hidden" : "block w-14"}></div>
+                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("tasks", isDone)}>Tasks</button>
+                    {
+                        isDone ? <div className="hidden"></div> :
+                            <button className="block px-6 py-1 text-center w-52 text-grid-header" onClick={() => sortByField("status", isDone)}>Status</button>
+
+                    }
+                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("date", isDone)}>Date</button>
+                    <button className="pl-5 text-center w-52 text-grid-header" onClick={() => sortByField("time", isDone)}>Time</button>
+                    <div className={isDone ? "w-min" : "w-1/12"}></div>
                 </div>
             </div>
             <div className="flex flex-col mx-6">
@@ -32,7 +36,7 @@ export default function TodoList(props: { data: TodoType[], isDone: boolean, edi
                         return (<div key={t.id.toString()} className="flex items-center justify-between w-auto mt-2 border-b border-grid-seperator">
                             <input key={`done_${t.id}`} name={`${t.id}`} type="checkbox" className={isDone ? "hidden" : "w-10 text-center"} checked={t.isChecked} onChange={doneTodo}></input>
                             <input key={`task_${t.id}`} type="text" readOnly className="pl-5 text-center w-52" value={t.tasks}></input>
-                            <div key={`status_${t.id}`} className={`px-6 py-1 rounded-full text-center h-8 w-52 text-white bg-${(t.status === 1) ? "inprogress " : "paused "}`}>{(t.status === 1) ? "In Progress" : "Paused"}</div>
+                            <div key={`status_${t.id}`} className={isDone ? "hidden" : `block px-6 py-1 rounded-full text-center h-8 w-52 text-white bg-${(t.status === 1) ? "inprogress " : "paused "}`}>{(t.status === 1) ? "In Progress" : "Paused"}</div>
                             <label key={`date_${t.id}`} className="pl-5 text-center w-52">{setDate(t.date)}</label>
                             <label key={`itime_${t.id}`} className="pl-5 text-center w-52">{setTime(t.time)}</label>
                             <div className="flex">

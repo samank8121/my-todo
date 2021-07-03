@@ -26,11 +26,13 @@ const Modal = (props: { titleModal: string, showModal: boolean, closeModal: any;
   const todoDateChange = (e: any) => {
     setShowCalendar(false);
     const newValue = e;
-    setTodo(prevState => ({ ...prevState, date: newValue }));
+    const date = (typeof newValue === "string") ? new Date(newValue) : newValue;
+    setTodo(prevState => ({ ...prevState, date: date }));
   };
   const todoTimeChange = (e: any) => {
     const newValue = e;
-    setTodo(prevState => ({ ...prevState, time: newValue }));
+    const time = (typeof newValue === "string") ? new Date(`2021 1 1 ${newValue}`) : newValue;
+    setTodo(prevState => ({ ...prevState, time: time }));
   };
   const openCalendar = (e: any) => {
     setShowCalendar(true);
@@ -50,8 +52,8 @@ const Modal = (props: { titleModal: string, showModal: boolean, closeModal: any;
                     {titleModal}
                   </h3>
                 </div>
-                <div className="relative grid w-auto grid-cols-8 gap-1 mr-6 place-items-start">
 
+                <div className="relative grid w-auto grid-cols-8 gap-1 mr-6 place-items-start">
                   <label htmlFor="task" className="col-span-2 pl-3 mt-3">Task Name: </label>
                   <input type="text" className="w-48 col-span-6 mt-3 border-2 border-gray-400 rounded" id="task" value={todo.tasks} onChange={todoTaskChange} placeholder="Task name" />
 

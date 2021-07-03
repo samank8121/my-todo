@@ -4,6 +4,7 @@ import { TodoType, TodoStatus, FieldTodoTypes } from "./TodoTypes";
 import Modal from "./Modal";
 import _ from "lodash";
 
+
 const Tabs = () => {
     const [openTab, setOpenTab] = useState(1);
     const [showModal, setShowModal] = useState(false);
@@ -59,6 +60,7 @@ const Tabs = () => {
     }
     const saveModal = useCallback((todo: TodoType) => {
         if (todoValidation(todo)) {
+            debugger
             if (todo && todo.id === 0) {
                 todo.id = idGenerator();
                 addTodo(todo);
@@ -68,6 +70,7 @@ const Tabs = () => {
                 todos[editedTodoIndex] = todo;
                 setTodos(todos);
             }
+
             setShowModal(false);
             setCurrentTodoDefault();
         }
@@ -82,6 +85,7 @@ const Tabs = () => {
         setShowModal(true);
     };
     const deleteTodo = (todo: TodoType) => {
+        setCurrentTodo(todo);
         let tempTodos = todos.filter(s => s.id !== todo.id);
         setTodos(tempTodos);
     }
@@ -97,9 +101,9 @@ const Tabs = () => {
         }
     }
 
-    const sortByField = (field: string) => {
+    const sortByField = (field: string, isDone: boolean) => {
         const orderDir = (orderDirectionTodos[field] === "asc") ? "desc" : "asc";
-        let tempTodos = [...todos];
+        let tempTodos = todos.filter(s => s.isChecked === isDone);
         tempTodos = _.orderBy(tempTodos, [field], [orderDir]);
         setOrderDirectionTodos({ ...orderDirectionTodos, [field]: orderDir });
         setTodos(tempTodos);
@@ -179,6 +183,8 @@ const Tabs = () => {
                         <span>Add</span>
                     </button>
                     <Modal titleModal="Modal" showModal={showModal} closeModal={closeModal} saveModal={saveModal} todoObj={currentTodo} />
+
+
                 </div>
             </div >
         </>
