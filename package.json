@@ -24,13 +24,11 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
-    "start:tw": "postcss ./src/todoStyles.css -o ./src/tailwind.css -w",
+    "start:tw": "postcss ./src/Styles/todoStyles.css -o ./src/tailwind.css -w",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx --quiet",
-    "lint-fix": "eslint . --ext .js,.jsx,.ts,.tsx --fix"
+    "eject": "react-scripts eject"
   },
   "eslintConfig": {
     "extends": [

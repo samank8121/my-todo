@@ -1,9 +1,10 @@
-import React, { useState, useEffect } from "react";
-import Calendar from "react-calendar";
-import "../Styles/Calendar.css";
-import moment from "moment";
+import React, { useState, useEffect } from 'react';
+import Calendar from 'react-calendar';
+import '../Styles/Calendar.css';
+import moment from 'moment';
 
-export default function CustomCalendar(props: { initDate: Date, onChangeDate: any; }) {
+// eslint-disable-next-line @typescript-eslint/explicit-module-boundary-types
+export default function CustomCalendar(props: { initDate: Date; onChangeDate: (d: Date) => void }) {
   const { initDate, onChangeDate } = props;
   const [dateState, setDateState] = useState(initDate ? initDate : new Date());
 
@@ -11,20 +12,21 @@ export default function CustomCalendar(props: { initDate: Date, onChangeDate: an
     setDateState(initDate);
   }, [initDate]);
 
-  const formatShortWeekday = (locale: any, date: any) => {
-    return ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"][date.getDay()];
+  const formatShortWeekday = (locale: string, date: Date) => {
+    return ['Su', 'Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa'][date.getDay()];
   };
 
-  const navigationLabel = ({ date, label, locale, view }: { date: any, label: any, locale: any, view: any }) => {
-    return date === moment() ? `${moment(date).format("MMMM YY")}` : label;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const navigationLabel = ({ date, label, locale, view }: { date: Date; label: string; locale: string; view: string }) => {
+    return date ? `${moment(date).format('MMMM YY')}` : label;
   };
   return (
     <>
       <Calendar
         value={dateState}
-        prev2Label=""
-        next2Label=""
-        calendarType="US"
+        prev2Label=''
+        next2Label=''
+        calendarType='US'
         navigationLabel={navigationLabel}
         showNeighboringMonth={false}
         onChange={onChangeDate}
