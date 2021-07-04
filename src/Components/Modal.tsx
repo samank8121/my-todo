@@ -13,7 +13,10 @@ const Modal = (props: { titleModal: string, showModal: boolean, closeModal: any;
     setTodo(todoObj);
   }, [todoObj]);
 
+  console.log("render modal");
+
   const todoTaskChange = (e: React.FormEvent<HTMLInputElement>) => {
+
     const newValue = e.currentTarget.value;
     setTodo(prevState => ({ ...prevState, tasks: newValue }));
   };
