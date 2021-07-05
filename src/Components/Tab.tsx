@@ -55,8 +55,6 @@ const Tabs = () => {
     } else return true;
   };
   const saveModal = useCallback((todo: TodoType) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     if (deleteModal) {
       const tempTodos = todos.filter(s => s.id !== todo.id);
       setTodos(tempTodos);
@@ -140,9 +138,6 @@ const Tabs = () => {
                         e.preventDefault();
                         setOpenTab(1);
                       }}
-                      data-toggle='tab'
-                      href='#todoTab'
-                      role='tablist'
                     >
                       To Do
                     </a>
@@ -159,9 +154,6 @@ const Tabs = () => {
                         e.preventDefault();
                         setOpenTab(2);
                       }}
-                      data-toggle='tab'
-                      href='#doneTab'
-                      role='tablist'
                     >
                       Done Tasks
                     </a>
@@ -169,17 +161,6 @@ const Tabs = () => {
                 </ul>
                 <div className='relative flex flex-col w-full min-w-0 mb-6 break-words bg-white border-t-2 border-tab-border'>
                   <div className='flex-auto px-4 py-5'>
-                    {/* <div className="tab-content tab-space">
-                                            <div className={openTab === 1 ? "block" : "hidden"} id="todoTab">
-                                                <TodoList data={todos} isDone={false} editTodo={editTodoModal} deleteTodo={deleteTodo}
-                                                    doneTodo={doneTodo} sortByField={sortByField} />
-                                            </div>
-                                            <div className={openTab === 2 ? "block" : "hidden"} id="doneTab">
-                                                <TodoList data={todos} isDone={true} editTodo={editTodoModal} deleteTodo={deleteTodo}
-                                                    doneTodo={doneTodo} sortByField={sortByField} />
-                                            </div>
-                                        </div>
-                                         */}
                     <TodoList data={todos} isDone={openTab === 2} editTodo={editTodoModal} deleteTodo={deleteTodo} doneTodo={doneTodo} />
                   </div>
                 </div>

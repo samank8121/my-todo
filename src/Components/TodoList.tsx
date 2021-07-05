@@ -37,10 +37,14 @@ function TodoList(props: {
   console.log('render todo');
 
   const sortByField = (field: string) => {
-    // eslint-disable-next-line no-debugger
-    debugger;
     const orderDir = orderDirectionTodos[field] === Constants.ASC ? Constants.DESC : Constants.ASC;
-    const tempTodos = _.orderBy(todos, [field], [orderDir]);
+    let tempTodos = todos;
+    // if (field === 'time') {
+    //   if (orderDir === Constants.ASC) tempTodos = todos.sort((t1, t2) => t1.time.getTime() - t2.time.getTime());
+    //   else tempTodos = todos.sort((t1, t2) => t2.time.getTime() - t1.time.getTime());
+    // } else {
+    tempTodos = _.orderBy(todos, [field], [orderDir]);
+    //}
     setOrderDirectionTodos({ ...orderDirectionTodos, [field]: orderDir });
     setTodos(tempTodos);
   };
