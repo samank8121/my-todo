@@ -5,7 +5,10 @@ function ErrorAlert(props: { errorMessage: string; setShowErrorMessage: (s: bool
   console.log('Render Alert');
   return (
     <>
-      <div className='relative px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded ' onClick={() => setShowErrorMessage(false)}>
+      <div
+        className='relative z-50 px-4 py-3 text-red-700 bg-red-100 border border-red-400 rounded '
+        onClick={() => setShowErrorMessage(false)}
+      >
         <strong className='font-bold'>Error:</strong>
         <span className='block pl-2 sm:inline'>{errorMessage}</span>
         <span className='absolute top-0 bottom-0 right-0 px-4 py-3'>

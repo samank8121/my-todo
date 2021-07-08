@@ -54,26 +54,29 @@ const Tabs = () => {
       return false;
     } else return true;
   };
-  const saveModal = useCallback((todo: TodoType) => {
-    if (deleteModal) {
-      const tempTodos = todos.filter(s => s.id !== todo.id);
-      setTodos(tempTodos);
-      setShowModal(false);
-      setCurrentTodoDefault();
-    } else if (todoValidation(todo)) {
-      if (todo && todo.id === 0) {
-        todo.id = idGenerator();
-        if (todo.time.toDateString() !== new Date(2021, 1, 1).toDateString()) {
-          todo.time = new Date(2021, 1, 1, todo.time.getHours(), todo.time.getMinutes(), todo.time.getSeconds());
+  const saveModal = useCallback(
+    (todo: TodoType) => {
+      if (deleteModal) {
+        const tempTodos = todos.filter(s => s.id !== todo.id);
+        setTodos(tempTodos);
+        setShowModal(false);
+        setCurrentTodoDefault();
+      } else if (todoValidation(todo)) {
+        if (todo && todo.id === 0) {
+          todo.id = idGenerator();
+          if (todo.time.toDateString() !== new Date(2021, 1, 1).toDateString()) {
+            todo.time = new Date(2021, 1, 1, todo.time.getHours(), todo.time.getMinutes(), todo.time.getSeconds());
+          }
+          addTodo(todo);
+        } else {
+          editTodo(todo);
         }
-        addTodo(todo);
-      } else {
-        editTodo(todo);
+        setShowModal(false);
+        setCurrentTodoDefault();
       }
-      setShowModal(false);
-      setCurrentTodoDefault();
-    }
-  }, []);
+    },
+    [currentTodo],
+  );
 
   const addTodo = (todo: TodoType) => {
     todos.push(todo);
@@ -85,6 +88,14 @@ const Tabs = () => {
     setTodos([...todos]);
   };
   const addClicked = useCallback(() => {
+    setCurrentTodo({
+      id: 0,
+      isChecked: false,
+      tasks: '',
+      status: TodoStatus.Paused,
+      date: new Date(),
+      time: new Date(),
+    });
     setModalTitle(Constants.AddModalTitle);
     setShowModal(true);
     setDeleteModal(false);
@@ -97,6 +108,8 @@ const Tabs = () => {
   }, []);
 
   const deleteTodo = useCallback((todo: TodoType) => {
+    // eslint-disable-next-line no-debugger
+    debugger;
     setCurrentTodo(todo);
     setModalTitle(Constants.DeleteModalTitle);
     setShowModal(true);
